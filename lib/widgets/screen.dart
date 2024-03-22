@@ -8,15 +8,13 @@ class Screen  extends StatelessWidget {
     return Container(
         alignment: Alignment.bottomRight,
         padding: EdgeInsets.all(10),
-        child: Text("this is screen",
+        child: Text("99999",
         style: TextStyle(
           color: Colors.black,
-          fontSize: 50,
+          fontSize: 70,
         ),),
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.red,
-      ),
+      height: 240,
+
     );
   }
 }

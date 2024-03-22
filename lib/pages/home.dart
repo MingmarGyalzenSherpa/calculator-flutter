@@ -17,7 +17,11 @@ class _HomeState extends State<Home> {
                   '1','2','3','+',
                   '.','0','<','='];
 
+  void handleButton(var number){
+    print(number);
+  }
 
+  bool isLightMode = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,20 +34,15 @@ class _HomeState extends State<Home> {
           Screen(),
           Expanded(
             child: Container(
-              color: Colors.blue,
-              width: 100,
-              height: 100,
-              child: GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-              children: [
-                CalculatorButton(label: '2'),
-                CalculatorButton(label: '2'),
-                CalculatorButton(label: '2'),
-                CalculatorButton(label: '2'),
-            
-              ],
-              ),
-            ),
+              color:Colors.white,
+              child: GridView.builder(
+                padding: EdgeInsets.all(10),
+                itemCount: buttons.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+                  itemBuilder: (context,index){
+                    return CalculatorButton(label:buttons[index], callback:handleButton);
+                  }),
+            )
           ),
         ],
       )
