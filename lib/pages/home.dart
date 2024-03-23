@@ -97,11 +97,18 @@ class _HomeState extends State<Home> {
       }
 
   }
-
   bool isLightMode = true;
+
+  void changeMode(){
+    setState(() {
+      isLightMode = !isLightMode;
+    });
+    print("light mode = $isLightMode");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isLightMode?Colors.white:Colors.black,
       body: SafeArea(
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -109,9 +116,9 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 40,
             ),
-            ThemeModeToggle(),
-            Screen(label: math_exp,fontSize: 30,height: 100,fontColor: Colors.black26),
-            Screen(label:output, fontSize: 50, height: 100 ,fontColor: Colors.black,),
+            ThemeModeToggle(callback: changeMode),
+            Screen(label: math_exp,fontSize: 30,height: 100,fontColor:isLightMode? Colors.black26:Colors.grey),
+            Screen(label:output, fontSize: 50, height: 100 ,fontColor:isLightMode? Colors.black:Colors.white,),
             Expanded(
               child: Container(
                 // color:Colors.red,
@@ -120,7 +127,9 @@ class _HomeState extends State<Home> {
                   itemCount: buttons.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                     itemBuilder: (context,index){
-                      return CalculatorButton(label:buttons[index], callback:handleButton);
+                      return CalculatorButton(label:buttons[index], callback:handleButton,backgroundColor: isLightMode?Colors.white:Colors.black,
+                      foregroundColor: isLightMode?Colors.black:Colors.white,
+                      );
                     }),
               )
             ),
