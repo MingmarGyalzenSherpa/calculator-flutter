@@ -68,7 +68,16 @@ class _HomeState extends State<Home> {
               }
             case "+/-":
               {
-                print(operators.any((element) => element == math_exp[math_exp.length-1]));
+                if(operators.any((element) => element==math_exp[math_exp.length-1]))
+                  {
+                    return;
+                  }
+                Expression exp = Expression(math_exp);
+                var ans =  int.parse(exp.eval().toString());
+                setState(() {
+                  output = math_exp = ans <0 ? (ans - (ans * 2)).toString():(ans -(ans *2)).toString();
+                });
+
               }
             default:
               {
