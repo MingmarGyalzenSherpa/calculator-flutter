@@ -21,12 +21,15 @@ class CalculatorButton extends StatelessWidget {
     return ElevatedButton(onPressed: (){
       callback(label);
     },
-    style: ButtonStyle(
+    style:ButtonStyle(
       backgroundColor: MaterialStatePropertyAll(backgroundColor),
-      shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
+      shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+
+
       ),
       padding: MaterialStatePropertyAll(EdgeInsets.all(10)),
       elevation: MaterialStatePropertyAll(0),
+
     ),
         child: (label!="<")? Text(label,
           style: TextStyle(

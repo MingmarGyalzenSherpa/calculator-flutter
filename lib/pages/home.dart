@@ -12,25 +12,30 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  // List buttons = ['C','+/-','%','/',
-  //                 '7','8','9','x',
-  //                   '4','5','6','-',
-  //                 '1','2','3','+',
-  //                 '.','0','<','='];
+  List buttons = ['C','+/-','%','/',
+                  '7','8','9','x',
+                    '4','5','6','-',
+                  '1','2','3','+',
+                  '.','0','<','='];
 
+  List operators = [
+    '%','/','*','-','+','.'
+  ];
 
-  List buttons = [
-    '7','8','9','/',
-    '4','5','6','-',
-    '1','2','3','x',
-    'C','0','+','<','='];
+  // List buttons = [
+  //   '7','8','9','/',
+  //   '4','5','6','-',
+  //   '1','2','3','x',
+  //   'C','0','+','<','='];
 
   String output = "";
   String math_exp = "";
   void handleButton(var input){
       if(input == "=")
         {
-          if(math_exp.isEmpty) return;
+          if(math_exp.isEmpty ||
+            operators.any((element) => element == math_exp[math_exp.length-1])
+          ) return;
           print("math_exp inside = = $math_exp");
           Expression exp = Expression(math_exp);
           setState(() {
@@ -40,13 +45,11 @@ class _HomeState extends State<Home> {
           //calculate
         }else if(input == "C" || input == "+/-" || input == "%"
       || input == "/" || input == "x" || input == "-" || input == "+"
-      || input == "." || input == "<")
+       || input == "<")
         {
           switch(input) {
             case "<":
               {
-
-
                 setState(() {
                   output =output.isEmpty ? output : output.substring(0, output.length - 1);
                   math_exp =math_exp.isEmpty ? "": math_exp.substring(0, math_exp.length - 1);
@@ -62,6 +65,10 @@ class _HomeState extends State<Home> {
                   math_exp = "";
                 });
                 break;
+              }
+            case "+/-":
+              {
+                print(operators.any((element) => element == math_exp[math_exp.length-1]));
               }
             default:
               {
