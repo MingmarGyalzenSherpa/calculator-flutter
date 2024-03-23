@@ -2,7 +2,7 @@ import 'package:calculator/widgets/calculator_btn.dart';
 import 'package:calculator/widgets/screen.dart';
 import 'package:calculator/widgets/themeModeToggle.dart';
 import 'package:flutter/material.dart';
-
+import 'package:eval_ex/expression.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -23,41 +23,62 @@ class _HomeState extends State<Home> {
     '7','8','9','/',
     '4','5','6','-',
     '1','2','3','x',
-    'C','0','+','='];
+    'C','0','+','<','='];
 
-  String output = "0";
+  String output = "";
   String math_exp = "";
   void handleButton(var input){
       if(input == "=")
         {
+          if(math_exp.isEmpty) return;
+          print("math_exp inside = = $math_exp");
+          Expression exp = Expression(math_exp);
           setState(() {
-            output = "output";
-            print(math_exp);
+            output = exp.eval().toString();
+            math_exp = output;
           });
           //calculate
         }else if(input == "C" || input == "+/-" || input == "%"
       || input == "/" || input == "x" || input == "-" || input == "+"
       || input == "." || input == "<")
         {
-          if(input == "<")
-            {
-              setState(() {
-                output = output.substring(0, output.length-1);
-                math_exp = math_exp.substring(0,math_exp.length-1);
-              });
-            }else {
-            setState(() {
-              output = "";
-            });
-          }//operation
+          switch(input) {
+            case "<":
+              {
+
+
+                setState(() {
+                  output =output.isEmpty ? output : output.substring(0, output.length - 1);
+                  math_exp =math_exp.isEmpty ? "": math_exp.substring(0, math_exp.length - 1);
+                });
+                print("output = $output");
+                print("math_exp = $math_exp");
+                break;
+              }
+            case "C":
+              {
+                setState(() {
+                  output = "";
+                  math_exp = "";
+                });
+                break;
+              }
+            default:
+              {
+                setState(() {
+                  output = "";
+                  math_exp += input == "x"?"*":input;
+                });
+              }
+              break;
+          }
+          //operation
         }else{
           setState(() {
            output += input;
+           math_exp +=input;
           });
       }
-      setState(() {
-        math_exp += input;
-      });
 
   }
 
@@ -73,7 +94,8 @@ class _HomeState extends State<Home> {
               height: 40,
             ),
             ThemeModeToggle(),
-            Screen(label:output),
+            Screen(label: math_exp,fontSize: 30,height: 100,fontColor: Colors.black26),
+            Screen(label:output, fontSize: 50, height: 100 ,fontColor: Colors.black,),
             Expanded(
               child: Container(
                 // color:Colors.red,
