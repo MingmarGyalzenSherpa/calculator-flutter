@@ -36,7 +36,6 @@ class _HomeState extends State<Home> {
           if(math_exp.isEmpty ||
             operators.any((element) => element == math_exp[math_exp.length-1])
           ) return;
-          print("math_exp inside = = $math_exp");
           Expression exp = Expression(math_exp);
           setState(() {
             output = exp.eval().toString();
@@ -54,8 +53,6 @@ class _HomeState extends State<Home> {
                   output =output.isEmpty ? output : output.substring(0, output.length - 1);
                   math_exp =math_exp.isEmpty ? "": math_exp.substring(0, math_exp.length - 1);
                 });
-                print("output = $output");
-                print("math_exp = $math_exp");
                 break;
               }
             case "C":
@@ -103,7 +100,6 @@ class _HomeState extends State<Home> {
     setState(() {
       isLightMode = !isLightMode;
     });
-    print("light mode = $isLightMode");
   }
   @override
   Widget build(BuildContext context) {
